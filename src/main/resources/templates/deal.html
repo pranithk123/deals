@@ -3,7 +3,25 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <title th:text="${deal.title}">Deal</title>
+    <title th:text="${deal.title} + ' - Best Price on ' + ${deal.store}">Deal</title>
+    <meta name="description" th:content="${#strings.abbreviate(deal.description, 155)}"/>
+    <meta property="og:title" th:content="${deal.title}"/>
+    <meta property="og:description" th:content="${deal.description}"/>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "[[${deal.title}]]",
+            "description": "[[${deal.description}]]",
+            "offers": {
+                "@type": "Offer",
+                "price": "[[${deal.price}]]",
+                "priceCurrency": "INR",
+                "availability": "[[${deal.expired ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock'}]]"
+            }
+        }
+    </script>
 </head>
 <body>
 <p><a href="/">← Back</a></p>

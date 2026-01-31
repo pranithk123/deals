@@ -241,3 +241,13 @@ a:hover { text-decoration: underline; }
     gap: 10px;
     justify-content: space-between;
 }
+@media (min-width: 1024px) {
+    .card { grid-column: span 4; }
+}
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(110, 168, 254, 0.2);
+}
