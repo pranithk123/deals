@@ -1,0 +1,29 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title th:text="'LootDeals – ' + ${category}">Category</title>
+</head>
+<body>
+<p><a href="/">← Back</a></p>
+
+<h1 th:text="${category}">Category</h1>
+<hr/>
+
+<div th:each="d : ${deals}">
+    <h3>
+        <a th:href="@{'/deal/' + ${d.slug}}" th:text="${d.title}">Deal title</a>
+        <span th:if="${d.discountPercent > 0}" th:text="' (' + ${d.discountPercent} + '% OFF)'"></span>
+        <span th:if="${d.expired}" style="color:red;"> [EXPIRED]</span>
+    </h3>
+    <p>
+        Price: ₹<span th:text="${d.price}"></span>
+        <span th:if="${d.oldPrice > 0}"> | MRP: ₹<span th:text="${d.oldPrice}"></span></span>
+        <span th:if="${d.store != null}"> | Store: <span th:text="${d.store}"></span></span>
+    </p>
+    <hr/>
+</div>
+
+</body>
+</html>

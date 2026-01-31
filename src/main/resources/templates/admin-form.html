@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Deal Form</title></head>
+<body>
+<h1>Deal Form</h1>
+
+<form method="post" action="/admin/save" th:object="${deal}">
+    <input type="hidden" th:field="*{id}"/>
+
+    <div>
+        <label>Title</label><br/>
+        <input th:field="*{title}" style="width:400px;"/>
+    </div>
+
+    <div>
+        <label>Slug (optional)</label><br/>
+        <input th:field="*{slug}" style="width:400px;"/>
+    </div>
+
+    <div>
+        <label>Category (Laptops/Mobiles/...)</label><br/>
+        <input th:field="*{category}" style="width:200px;"/>
+    </div>
+
+    <div>
+        <label>Store (Amazon/Flipkart...)</label><br/>
+        <input th:field="*{store}" style="width:200px;"/>
+    </div>
+
+    <div>
+        <label>Price</label><br/>
+        <input type="number" step="0.01" th:field="*{price}"/>
+    </div>
+
+    <div>
+        <label>Old Price (MRP)</label><br/>
+        <input type="number" step="0.01" th:field="*{oldPrice}"/>
+    </div>
+
+    <div>
+        <label>Description</label><br/>
+        <textarea th:field="*{description}" rows="5" cols="60"></textarea>
+    </div>
+
+    <div>
+        <label>Affiliate URL</label><br/>
+        <input th:field="*{affiliateUrl}" style="width:600px;"/>
+    </div>
+
+    <div style="margin-top:10px;">
+        <button type="submit">Save</button>
+        <a href="/admin">Cancel</a>
+    </div>
+</form>
+</body>
+</html>

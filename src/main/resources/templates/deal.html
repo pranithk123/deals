@@ -1,0 +1,37 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title th:text="${deal.title}">Deal</title>
+</head>
+<body>
+<p><a href="/">← Back</a></p>
+
+<h1 th:text="${deal.title}">Title</h1>
+
+<p>
+    Category: <a th:href="@{'/category/' + ${deal.category}}" th:text="${deal.category}"></a>
+    <span th:if="${deal.store != null}"> | Store: <span th:text="${deal.store}"></span></span>
+</p>
+
+<h2>
+    ₹<span th:text="${deal.price}"></span>
+    <span th:if="${deal.oldPrice > 0}"> (MRP ₹<span th:text="${deal.oldPrice}"></span>)</span>
+    <span th:if="${deal.discountPercent > 0}" th:text="' - ' + ${deal.discountPercent} + '% OFF'"></span>
+</h2>
+
+<p th:text="${deal.description}">Description...</p>
+
+<p th:if="${deal.expired}" style="color:red;font-weight:bold;">This deal is expired.</p>
+
+<a th:href="${deal.affiliateUrl}" target="_blank" rel="nofollow sponsored noopener">
+    <button>Get Deal</button>
+</a>
+
+<hr/>
+<p style="font-size:12px;">
+    Affiliate disclosure: This is an affiliate link (I may earn commission).
+</p>
+</body>
+</html>

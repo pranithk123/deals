@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LootDeals — Best Discount Deals</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<div class="container">
+
+    <div class="topbar">
+        <div class="brand">
+            <h1>LootDeals</h1>
+            <div class="tagline">Fast laptop/mobile deals • affiliate supported</div>
+        </div>
+
+        <form class="search" method="get" action="/">
+            <input type="text" name="q" placeholder="Search deals..." th:value="${q}">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="nav">
+        <a class="pill" th:href="@{/}">
+            <b>All</b> <span>deals</span>
+        </a>
+        <a class="pill" th:href="@{/category/Laptops}">
+            <b>Laptops</b> <span>category</span>
+        </a>
+        <a class="pill" th:href="@{/category/Mobiles}">
+            <b>Mobiles</b> <span>category</span>
+        </a>
+        <a class="pill" th:href="@{/category/Accessories}">
+            <b>Accessories</b> <span>category</span>
+        </a>
+    </div>
+
+    <div class="notice">
+        Disclosure: Some links are affiliate links. If you buy, I may earn a commission at no extra cost to you.
+    </div>
+
+    <div class="grid">
+        <div class="card" th:each="d : ${deals}">
+            <div class="card-body">
+                <h2 class="card-title" th:text="${d.title}">Deal title</h2>
+
+                <div class="meta">
+                    <span class="badge store" th:text="${d.store}">Amazon</span>
+                    <span class="badge cat" th:text="${d.category}">Laptops</span>
+
+                    <!-- Discount badge if oldPrice is present and > price -->
+                    <span class="badge off"
+                          th:if="${d.oldPrice != null and d.oldPrice > d.price}"
+                          th:text="${T(java.lang.Math).round(((d.oldPrice - d.price) * 100.0) / d.oldPrice)} + '% OFF'">
+                        20% OFF
+                    </span>
+                </div>
+
+                <div class="price-row">
+                    <div class="price">
+                        <div class="now" th:text="'₹' + ${d.price}">₹59999</div>
+                        <div class="old"
+                             th:if="${d.oldPrice != null and d.oldPrice > 0}"
+                             th:text="'₹' + ${d.oldPrice}">
+                            ₹69999
+                        </div>
+                    </div>
+
+                    <div class="cta">
+                        <a class="btn" th:href="@{'/deal/' + ${d.slug}}">Details</a>
+                        <a class="btn primary" th:href="${d.affiliateUrl}" target="_blank" rel="nofollow noopener">
+                            Grab Deal →
+                        </a>
+                    </div>
+                </div>
+
+                <p class="desc" th:if="${d.description != null and !#strings.isEmpty(d.description)}"
+                   th:text="${d.description}">
+                    Short description here
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div>© <span th:text="${T(java.time.Year).now()}">2026</span> LootDeals</div>
+        <div>Made with Spring Boot • Keep checking for fresh drops 🚀</div>
+    </div>
+
+</div>
+</body>
+</html>
